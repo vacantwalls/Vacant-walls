@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Ccircle%20cx=%2732%27%20cy=%2732%27%20r=%2732%27%20fill=%27%23141414%27/%3E%3Cg%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%275%27%20stroke-linejoin=%27miter%27%20stroke-miterlimit=%274%27%3E%3Cpath%20d=%27M9%2022%20L18%2044%20L27%2022%27/%3E%3Cpath%20d=%27M31%2022%20L37%2044%20L41.5%2031%20L46%2044%20L55%2022%27/%3E%3C/g%3E%3C/svg%3E"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Vacant Walls — Pop-up Art Gallery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
@@ -185,13 +186,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
 .end{border-top:1px solid var(--rule);padding-top:36px;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 #app{display:grid;grid-template-columns:1fr 1fr;gap:26px clamp(20px,4vw,56px);max-width:960px}
 #app .full{grid-column:1/-1}#app button{justify-self:start}
-@media (max-width:760px){.dark{grid-template-columns:1fr}.q,.cols{grid-column:1}.cols,#inv,#app,.aw{grid-template-columns:1fr}.aw:nth-child(even) .cv{order:0}.row{grid-template-columns:1fr}.s1{top:10px}}
+@media (max-width:760px){.rows h2,#visit h2{text-align:left;text-align-last:left;font-size:clamp(30px,10vw,52px)}.dark{grid-template-columns:1fr}.q,.cols{grid-column:1}.cols,#inv,#app,.aw{grid-template-columns:1fr}.aw:nth-child(even) .cv{order:0}.row{grid-template-columns:1fr}.s1{top:10px}}
 @media (prefers-reduced-motion:reduce){.c1card,.script{animation:none}html{scroll-behavior:auto}.stick{height:auto;overflow-x:auto;padding:60px 0 90px}}
 </style>
 </head>
 <body>
 <header><a href="#top">Vacant Walls</a><button id="mb" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button></header>
-<div id="menu" hidden><nav aria-label="Contents"><a href="#about"><i>01</i>About</a><a href="#show"><i>02</i>Next stop</a><a href="#artists"><i>03</i>Featured artists</a><a href="#apply"><i>04</i>Apply as an artist</a></nav></div>
+<div id="menu" hidden><nav aria-label="Contents"><a href="#about"><i>01</i>About</a><a href="#show"><i>02</i>Next stop</a><a href="#apply"><i>03</i>Apply as an artist</a></nav></div>
 
 <main id="top">
 <section class="hero">
@@ -223,7 +224,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
   </div>
 </section>
 
-<section class="walk" id="walk" aria-label="Featured artists">
+<section class="walk" id="walk" aria-label="Featured artists" hidden style="display:none">
   <div class="stick"><div class="track" id="track">
     <div class="card">
       <svg class="fl" id="fl1" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40"/></svg>
@@ -252,14 +253,14 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
   <h1>Apply to be a part of our next show</h1>
   <p class="lead">Tell us about yourself and share a link to your work.</p>
   <form id="app">
-    <label>Name<input name="n" required autocomplete="name"></label>
-    <label>Email<input type="email" name="e" required autocomplete="email"></label>
-    <label>City<input name="c" autocomplete="address-level2"></label>
-    <label>Instagram or website<input name="w"></label>
-    <label>Medium<select name="m"><option>Painting</option><option>Drawing</option><option>Print</option><option>Photography</option><option>Sculpture</option><option>Textile</option><option>Digital</option><option>Mixed media</option><option>Other</option></select></label>
-    <label>Title of the work you'd like to show<input name="t"></label>
-    <label class="full">Link to images of your work (portfolio, Google Drive, Dropbox)<input type="url" name="l" required placeholder="https://"></label>
-    <label class="full">Tell us about the work<textarea name="d"></textarea></label>
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>City<input name="city" autocomplete="address-level2"></label>
+    <label>Instagram or website<input name="website"></label>
+    <label>Medium<select name="medium"><option>Painting</option><option>Drawing</option><option>Print</option><option>Photography</option><option>Sculpture</option><option>Textile</option><option>Digital</option><option>Mixed media</option><option>Other</option></select></label>
+    <label>Title of the work you'd like to show<input name="work_title"></label>
+    <label class="full">Link to images of your work (portfolio, Google Drive, Dropbox)<input type="url" name="portfolio_link" required placeholder="https://"></label>
+    <label class="full">Tell us about the work<textarea name="about_work"></textarea></label>
     <button class="pbtn" type="submit">Send application</button>
     <p id="appok" role="status" hidden>Application received. Thank you for sharing your work.</p>
   </form>
@@ -284,7 +285,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
   <div class="sh"><h2>About the show</h2>
     <div class="abt">
       <div><div class="fa"><span>Date</span>February 2027</div><div class="fa"><span>City</span>Raleigh, North Carolina</div><div class="fa"><span>Format</span>Contemporary group show</div></div>
-      <div><p>self:edited is a contemporary group show and the next stop for Vacant Walls, a pop-up gallery that brings art to a different venue in different cities.</p><p>Write a few lines here about the idea behind the show, the theme the artists responded to, and what visitors can expect when they arrive.</p></div>
+      <div><p>self:edited is a contemporary group show and the next stop for Vacant Walls, a pop-up gallery that brings art to a new venue in a new city each time. Come see how artists from around the world express who they are, in all its nuances, through their work.</p></div>
     </div>
   </div>
   <div hidden id="shArtists"></div>
@@ -296,11 +297,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
   <h1>RSVP</h1>
   <p class="lead">self:edited, February 2027, Raleigh. Add your details and we'll confirm your spot.</p>
   <form id="rsvpf">
-    <label>Name<input name="n" required autocomplete="name"></label>
-    <label>Email<input type="email" name="e" required autocomplete="email"></label>
-    <label>City<input name="c" autocomplete="address-level2"></label>
-    <label>Guests<select name="g"><option>Just me</option><option>Me + 1</option></select></label>
-    <label class="full">Anything we should know?<textarea name="d"></textarea></label>
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>City<input name="city" autocomplete="address-level2"></label>
+    <label>Guests<select name="guests"><option>Just me</option><option>Me + 1</option></select></label>
+    <label class="full">Anything we should know?<textarea name="notes"></textarea></label>
     <button class="pbtn" type="submit">Send RSVP</button>
     <p id="rsvpok" role="status" hidden>RSVP received. We'll email you to confirm.</p>
   </form>
@@ -314,8 +315,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
 </section>
 
 <footer id="visit">
-  <h2>Join the email list.<svg id="fl2" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40"/></svg></h2>
-  <form id="inv"><label>Email<input type="email" name="e" required autocomplete="email" placeholder="you@email.com"></label><button class="pbtn" type="submit">Join</button><p id="invok" role="status" hidden>You're on the list. We'll email you about the next pop-up.</p></form>
+  <h2>Join the email list.<svg id="fl2" viewBox="0 0 100 100" aria-hidden="true" style="display:none"><circle cx="50" cy="50" r="40"/></svg></h2>
+  <form id="inv"><label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@email.com"></label><button class="pbtn" type="submit">Join</button><p id="invok" role="status" hidden>You're on the list. We'll email you about the next pop-up.</p></form>
   <div class="bar"><a href="mailto:admin@vacantwallsgallery.com?subject=Hello%20Vacant%20Walls">admin@vacantwallsgallery.com</a><a href="#">@vacant.walls</a><span>©2026 Vacant Walls</span></div>
 </footer>
 
@@ -327,9 +328,9 @@ const DOT='<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50"
 const mb=$('#mb'),mn=$('#menu');
 const tog=o=>{mn.hidden=!o;mb.setAttribute('aria-expanded',o)};
 mb.onclick=()=>tog(mn.hidden);mn.onclick=()=>tog(false);
-$('#inv').addEventListener('submit',e=>{e.preventDefault();$('#invok').hidden=false;e.target.reset()});
-$('#app').addEventListener('submit',e=>{e.preventDefault();$('#appok').hidden=false;e.target.reset()});
-$('#rsvpf').addEventListener('submit',e=>{e.preventDefault();$('#rsvpok').hidden=false;e.target.reset()});
+const FS='https://formspree.io/f/maeondlw';
+function hook(id,okId,label){const f=$(id),ok=$(okId),t=ok.textContent;f.addEventListener('submit',async e=>{e.preventDefault();const b=f.querySelector('button[type=submit]'),d=new FormData(f);d.append('form',label);d.append('_subject','Vacant Walls: '+label);b.disabled=true;try{const r=await fetch(FS,{method:'POST',body:d,headers:{Accept:'application/json'}});if(!r.ok)throw 0;ok.textContent=t;ok.hidden=false;f.reset()}catch(x){ok.textContent='Something went wrong. Please email admin@vacantwallsgallery.com.';ok.hidden=false}b.disabled=false})}
+hook('#inv','#invok','Email list');hook('#app','#appok','Artist application');hook('#rsvpf','#rsvpok','RSVP');
 /* ticker */
 const u='Invite only'+DOT+'A pop-up gallery'+DOT+'Art worldwide'+DOT;$('#tk').innerHTML=u+u+u+u;
 /* artworks page + wall pieces */
