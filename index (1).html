@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2064%2064%27%3E%3Ccircle%20cx=%2732%27%20cy=%2732%27%20r=%2732%27%20fill=%27%23141414%27/%3E%3Cg%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-width=%275%27%20stroke-linejoin=%27miter%27%20stroke-miterlimit=%274%27%3E%3Cpath%20d=%27M9%2022%20L18%2044%20L27%2022%27/%3E%3Cpath%20d=%27M31%2022%20L37%2044%20L41.5%2031%20L46%2044%20L55%2022%27/%3E%3C/g%3E%3C/svg%3E"><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Vacant Walls — Pop-up Art Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--ink:#141414;--mute:#6b6b66;--rule:#14141433;--card:#f5f5f3;--dark:#1c1c1b;--dink:#f3f3f1;--h1:#efefed;--h2:#d6d6d2;--sans:'Inter Tight','Helvetica Neue',Arial,sans-serif;--script:'Reenie Beanie','Segoe Script',cursive;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--ink:#f1f0ea;--mute:#a09f98;--rule:#f1f0ea33;--card:#2a2924;--dark:#050505;--h1:#262625;--h2:#1c1c1b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161615;--ink:#f1f0ea;--mute:#a09f98;--rule:#f1f0ea33;--card:#2a2924;--dark:#050505;--h1:#262625;--h2:#1c1c1b;color-scheme:dark}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.cap{font:500 10px/1.2 var(--sans);letter-spacing:.03em;text-transform:uppercase}
+header{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) clamp(18px,3vw,44px) 14px;mix-blend-mode:difference;color:#fff}
+header a,#mb{font:500 10px var(--sans);letter-spacing:.03em;text-transform:uppercase;text-decoration:none;color:inherit}
+#mb{background:none;border:0;cursor:pointer;padding:0}
+#menu{position:fixed;inset:0;z-index:25;background:var(--bg);display:flex;align-items:flex-end;justify-content:flex-end;padding:clamp(18px,3vw,44px)}
+#menu[hidden]{display:none}
+#menu nav{width:min(560px,100%);border-top:1px solid var(--ink)}
+#menu a{display:grid;grid-template-columns:56px 1fr;padding:16px 0;border-bottom:1px solid var(--rule);text-decoration:none;font:600 clamp(16px,2vw,22px)/1 var(--sans);text-transform:uppercase}
+#menu a:hover{padding-left:12px}
+#menu a i{font-style:normal;font-weight:400}
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden;padding:90px 16px 80px;background:radial-gradient(circle at 18% 22%,var(--h1),transparent 52%),radial-gradient(circle at 82% 72%,var(--h2),transparent 56%),var(--h2)}
+#tiles,.hc.card2,section.photo{display:none}
+.hero .hc{background:transparent;border-radius:0}
+.hero .hc .s2{position:relative;right:auto;bottom:auto;display:block;margin:clamp(2px,1vw,14px) 0 clamp(16px,3vw,40px);font-size:clamp(34px,6.4vw,92px)}
+main>.dark{order:1;background:transparent;color:var(--ink);min-height:auto;padding-top:clamp(90px,13vw,180px);padding-bottom:clamp(90px,12vw,170px)}main>.rows{padding-top:clamp(100px,14vw,190px);padding-bottom:clamp(60px,8vw,110px)}main>.walk{margin-top:clamp(30px,5vw,70px)}
+#artistpg{padding:clamp(110px,14vw,180px) clamp(20px,4vw,56px) 70px}
+#artistpg h1{font-size:clamp(30px,5.4vw,84px);text-align:left;text-align-last:left;line-height:1}
+#artistpg .sh{margin-top:clamp(60px,9vw,120px);border-top:1px solid var(--ink);padding-top:22px}
+#artistpg .sh>h2{margin:0 0 clamp(24px,4vw,48px);font:500 clamp(26px,4.4vw,64px)/1 var(--sans);letter-spacing:-.04em;text-transform:uppercase}
+.sa h3 a{text-decoration:none;border-bottom:1.5px solid currentColor}
+#artists{padding:clamp(110px,14vw,180px) clamp(20px,4vw,56px) 70px}
+#artists .sas{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+#artists .sa p+p{color:var(--ink);margin-top:10px;max-width:34ch;font-size:15px}
+.dark .cols{display:block;font:500 clamp(18px,2.4vw,34px)/1.2 var(--sans);letter-spacing:-.02em;text-transform:uppercase;margin-top:clamp(36px,5vw,64px)}
+.dark .cols p{max-width:none}
+.dark .cols a{margin:0;text-decoration:none;border-bottom:1.5px solid currentColor}
+#apply h1{font-size:clamp(30px,5.4vw,84px);text-align:left;text-align-last:left;max-width:18ch;line-height:1}
+body.sub #visit h2,body.sub #inv{display:none}
+body.sub footer{padding-top:24px}
+.i1{background:url(assets/the-interface.jpg) center/cover}.i2{background:url(assets/metamorphosis.jpg) center/cover}.i3{background:url(assets/axis-of-becoming.jpg) center/cover}
+.i1,.i2,.i3{background:radial-gradient(circle at 50% 38%,#e9c9a8 0 15%,transparent 16%),radial-gradient(ellipse 46% 36% at 50% 104%,#2a1c18 0 100%,transparent 101%),#b9b9b3}
+@media (max-width:760px){
+body::after{display:none}
+header{padding-left:18px;padding-right:8px}
+#mb{height:44px;width:48px}
+.hero{padding:80px 12px 70px}
+.rv{text-align:left;text-align-last:left;max-width:none}
+.rows h2,#visit h2,.pg h1{text-align:left;text-align-last:left}
+.dark{padding:110px 20px 70px;min-height:auto}
+.card{width:78vw}
+.endc{width:60vw}
+.pbtn{width:100%;text-align:center}
+.end .pbtn{width:auto}
+.row{padding:16px 0}
+.row .pbtn{width:100%}
+.bar{flex-direction:column;gap:10px}
+input,select,textarea{font-size:18px}
+#menu{padding:18px}
+#menu a{padding:20px 0}
+}
+#show{padding:clamp(110px,14vw,180px) clamp(20px,4vw,56px) 70px}
+#show .sh{margin-top:clamp(60px,9vw,120px);border-top:1px solid var(--ink);padding-top:22px}
+#show .sh>h2{margin:0 0 clamp(24px,4vw,48px);font:500 clamp(26px,4.4vw,64px)/1 var(--sans);letter-spacing:-.04em;text-transform:uppercase}
+#show .end{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.abt{display:grid;grid-template-columns:1fr 2fr;gap:clamp(20px,4vw,60px)}
+.abt p{margin:0 0 1em;max-width:58ch;font-size:16px}
+.fa{padding:10px 0;border-top:1px solid var(--rule);font:500 13px var(--sans);text-transform:uppercase}
+.fa span{display:block;color:var(--mute);font-size:10px;margin-bottom:2px}
+.sas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.sa .cv{aspect-ratio:4/5;margin-bottom:14px}
+.sa h3{margin:0;font:600 18px var(--sans);text-transform:uppercase;letter-spacing:-.01em}
+.sa p{margin:4px 0 0;color:var(--mute);font-size:14px}
+.cr{display:grid;grid-template-columns:48px 72px 2fr 1fr 1fr;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--rule);font:500 13px var(--sans);text-transform:uppercase}
+.cr:last-child{border-bottom:1px solid var(--rule)}
+.cr b{font:500 clamp(16px,2vw,24px)/1.1 var(--sans);letter-spacing:-.02em}
+.cr .th{height:72px;width:72px}
+.cr span{color:var(--mute)}
+@media (max-width:760px){.abt{grid-template-columns:1fr}.sas{grid-template-columns:repeat(2,minmax(0,1fr))}.cr{grid-template-columns:40px 56px 1fr}.cr .th{height:56px;width:56px}.cr span:nth-child(4),.cr span:nth-child(5){grid-column:3}}
+#rsvp{padding:clamp(110px,14vw,180px) clamp(20px,4vw,56px) 70px}
+#rsvpf{display:grid;grid-template-columns:1fr 1fr;gap:26px clamp(20px,4vw,56px);max-width:960px}
+#rsvpf .full{grid-column:1/-1}#rsvpf button{justify-self:start}
+#rsvpok{grid-column:1/-1;margin:0;font:400 clamp(18px,2vw,24px)/1.3 var(--sans)}
+@media (max-width:760px){#rsvpf{grid-template-columns:1fr}}
+#mb{width:40px;height:28px;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:8px}
+#mb i{display:block;width:32px;height:1.5px;background:currentColor;transition:transform .3s}
+#mb[aria-expanded=true] i:first-child{transform:translateY(4.75px) rotate(12deg)}
+#mb[aria-expanded=true] i:last-child{transform:translateY(-4.75px) rotate(-12deg)}
+@media (min-width:761px){#inv{grid-template-columns:1fr auto}}
+main:not([hidden]){display:flex;flex-direction:column}
+.hero{order:0}.dark{order:1}.rows{order:2}.walk{order:3}
+.hero{background:var(--bg)}
+.hc{background:transparent;border-radius:0}
+.tile{position:absolute;z-index:1;border:5px solid var(--bg);box-shadow:0 10px 22px -8px #0005;will-change:transform}
+.hc{position:relative;z-index:2;width:min(92vw,1000px);background:var(--card);border-radius:18px}
+.c1card{padding:clamp(40px,7vw,90px) clamp(16px,3vw,40px) clamp(40px,6vw,76px);text-align:center;animation:rise 1.8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}}
+.wm{margin:0;font:800 clamp(30px,min(11.6vw,135px),135px)/.9 var(--sans);letter-spacing:-.07em;text-transform:lowercase}
+.script{position:absolute;margin:0;font:400 clamp(40px,9.6vw,140px)/.8 var(--script);z-index:3;pointer-events:none;white-space:nowrap;will-change:transform;animation:write 3.8s .6s cubic-bezier(.5,0,.2,1) both}
+.s2{animation-delay:.6s}
+@keyframes write{from{clip-path:inset(-40% 100% -40% -2%)}to{clip-path:inset(-40% -2% -40% -2%)}}
+.wm{will-change:transform,letter-spacing}
+.s1{left:clamp(10px,3vw,44px);top:clamp(4px,1.4vw,22px)}.s2{right:clamp(10px,3vw,44px);bottom:clamp(26px,4.6vw,66px)}
+.cl{position:absolute;bottom:16px}.cl.l{left:clamp(14px,2.4vw,30px)}.cl.r{right:clamp(14px,2.4vw,30px)}
+.card2{padding:clamp(20px,3vw,34px) clamp(16px,2.6vw,34px);display:grid;gap:clamp(40px,7vw,90px)}
+.top2{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.pill{background:#141414;color:#f3f3f1;border-radius:999px;display:flex;align-items:center;gap:10px;padding:10px 20px 10px 14px;border:3px solid var(--card);outline:1px solid #141414}
+.pill b{font:800 28px/1 var(--sans);letter-spacing:-.06em}.pill span{font:600 7px/1.3 var(--sans);letter-spacing:.06em;text-transform:uppercase}
+.nm{text-align:right}
+.drow{display:flex;justify-content:flex-end;gap:16px;padding:3px 0;font:500 clamp(10px,1.1vw,13px)/1.3 var(--sans);text-transform:uppercase}
+.drow a{text-decoration:none}.drow a:hover{text-decoration:underline}
+.ticker{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--rule);padding:13px 0;white-space:nowrap;overflow:hidden;font-size:13px;z-index:3;text-transform:uppercase;font-weight:500}
+.ticker div{display:inline-block;will-change:transform}
+.ticker svg,footer h2 svg,.fl{fill:var(--ink)}
+.ticker svg{width:.7em;height:.7em;margin:0 1.4em;vertical-align:0}
+/* dark */
+.dark{background:var(--dark);color:#f3f3f1;padding:clamp(90px,14vw,180px) clamp(20px,6vw,90px) clamp(70px,9vw,120px);min-height:100vh;display:grid;grid-template-columns:90px 1fr;gap:0 clamp(10px,3vw,50px);align-content:start}
+.q{font:500 64px/1 var(--sans);margin-top:4px}
+.rv{margin:0;font:500 clamp(28px,5vw,80px)/1.12 var(--sans);letter-spacing:-.02em;text-transform:uppercase;text-align:justify;text-align-last:justify;max-width:20ch}
+.rv .w{display:inline-block;white-space:nowrap}.rv i{font-style:normal;opacity:.22;transition:opacity .3s}
+.cols{grid-column:2;display:grid;grid-template-columns:1fr 1fr;gap:24px clamp(24px,6vw,100px);margin-top:clamp(40px,6vw,80px);max-width:880px;font-size:12px}
+.cols p{margin:0;max-width:34ch}.cols a{display:inline-block;margin-top:8px}
+/* featured artists */
+.walk{position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center}
+.stick::after{content:none}
+.track{display:flex;align-items:center;gap:clamp(40px,6vw,100px);padding:0 8vw;will-change:transform}
+.card{flex:none;width:min(80vw,440px)}
+.card h2{margin:0 0 22px;font:500 clamp(34px,5vw,72px)/.95 var(--sans);letter-spacing:-.035em;text-transform:uppercase}
+.fl{width:clamp(30px,4vw,56px);display:block;margin-bottom:18px;will-change:transform}
+.fact{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-top:1px solid var(--rule);font-size:13px;text-transform:uppercase;font-weight:500}.fact span{color:var(--mute)}
+.pc{flex:none;margin:0;position:relative;will-change:transform}
+.pc .art{height:var(--h);aspect-ratio:var(--a)}
+.pc.fr .art{box-shadow:0 0 0 9px #fafaf8,0 22px 30px -8px #0005}
+.pc figcaption{position:absolute;left:0;top:100%;padding-top:22px;white-space:nowrap;font:500 10px var(--sans);letter-spacing:.03em;text-transform:uppercase}.pc figcaption span{color:var(--mute);margin-left:10px}
+.c1{background:radial-gradient(ellipse 30% 45% at 50% 38%,#d7d0c6 0 60%,transparent 61%),radial-gradient(ellipse 14% 20% at 50% 72%,#d7d0c6 0 60%,transparent 61%),linear-gradient(160deg,#7a2f3a,#2b2a55 70%,#c8c4b8)}
+.c2{background:repeating-linear-gradient(90deg,#27407a 0 6px,#6c86b8 6px 8px,#27407a 8px 22px);clip-path:polygon(2% 1%,30% 0,60% 2%,99% 0,100% 40%,98% 100%,55% 98%,0 100%,1% 50%)}
+.c3{background:radial-gradient(circle,#7a3f45 0 40%,transparent 41%),radial-gradient(circle,#9a6a55 0 45%,transparent 46%),linear-gradient(#d8c6a6,#cdb894)}
+.c4{background:radial-gradient(ellipse 50% 30% at 40% 70%,#b86a3c 0 60%,transparent 61%),radial-gradient(circle at 70% 25%,#f0e8d4 0 8%,transparent 9%),linear-gradient(#b9ad98,#3a352e)}
+.c5{background:radial-gradient(circle at 30% 60%,#e6a9b8 0 30%,transparent 31%),radial-gradient(circle at 70% 40%,#3b2a78 0 28%,transparent 29%),linear-gradient(#efe6cc,#d8c9a4)}
+.endc{flex:none;width:min(70vw,340px);font:500 clamp(26px,3.4vw,46px)/1 var(--sans);letter-spacing:-.03em;text-transform:uppercase}.endc a{text-decoration:none;border-bottom:2px solid currentColor}
+/* details */
+.rows{padding:clamp(80px,12vw,160px) clamp(20px,4vw,56px) 0}
+.rows h2,#visit h2{margin:0 0 28px;font:500 clamp(30px,6vw,92px)/.95 var(--sans);letter-spacing:-.04em;text-transform:uppercase;text-align:justify;text-align-last:justify}
+.row{display:grid;grid-template-columns:1fr 3fr;gap:16px;padding:18px 0;border-top:1px solid var(--rule);align-items:baseline;transition:padding .3s}
+.row:last-child{border-bottom:1px solid var(--rule)}
+.row span{font:500 10px var(--sans);letter-spacing:.03em;text-transform:uppercase;color:var(--mute)}
+.row b{font:500 clamp(22px,3.6vw,52px)/1 var(--sans);letter-spacing:-.035em;text-transform:uppercase}
+.row:hover{padding-left:16px}
+.pbtn{display:inline-block;font:600 14px/1 var(--sans);text-transform:uppercase;letter-spacing:.02em;background:var(--ink);color:var(--bg);padding:18px 44px;border-radius:999px;text-decoration:none;border:0;cursor:pointer}
+.pbtn:hover{opacity:.8}
+/* photo */
+.photo{position:relative;height:100vh;margin:clamp(70px,10vw,140px) clamp(12px,1.6vw,24px) 0;overflow:hidden;border-radius:18px}
+.img{position:absolute;left:0;right:0;top:-12%;bottom:-12%;background:radial-gradient(circle at 70% 30%,#f3f3f1 0 5%,transparent 5.5%),radial-gradient(ellipse 30% 14% at 30% 78%,#141414 0 70%,transparent 71%),radial-gradient(ellipse 22% 10% at 62% 80%,#141414 0 70%,transparent 71%),radial-gradient(ellipse 25% 40% at 8% 0%,#141414 0 70%,transparent 71%),linear-gradient(#cfcfca,#a9a9a3)}
+.yr{position:absolute;left:18px;bottom:20px;font:500 20px/1 var(--sans);letter-spacing:.1em;color:#141414;writing-mode:vertical-rl;transform:rotate(180deg)}
+/* footer */
+footer{padding:clamp(70px,10vw,140px) clamp(20px,4vw,56px) 36px}
+footer h2 svg{width:.5em;margin-left:.2em;vertical-align:.04em;will-change:transform}
+#inv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:24px clamp(18px,3vw,44px);align-items:end;margin:0 0 clamp(50px,7vw,90px)}
+label{display:flex;flex-direction:column;gap:6px;font:500 10px var(--sans);letter-spacing:.03em;text-transform:uppercase}
+input,select,textarea{font:400 clamp(18px,2vw,24px)/1.3 var(--sans);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:8px 0;width:100%;letter-spacing:0;text-transform:none}
+select option{color:#111}textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-width:2px}
+#invok,#appok{grid-column:1/-1;margin:0;font:400 clamp(18px,2vw,24px)/1.3 var(--sans)}
+.bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:500 11px var(--sans);text-transform:uppercase;border-top:1px solid var(--rule);padding-top:14px}
+/* sub pages */
+#artworks,#apply{padding:clamp(110px,14vw,180px) clamp(20px,4vw,56px) 70px}
+.back{display:inline-block;margin-bottom:28px;font:500 10px var(--sans);letter-spacing:.03em;text-transform:uppercase}
+.pg h1{font:500 clamp(34px,7vw,112px)/.95 var(--sans);letter-spacing:-.04em;margin:0 0 16px;text-transform:uppercase;text-align:justify;text-align-last:justify}
+.lead{font:400 clamp(18px,2vw,28px)/1.2 var(--sans);max-width:36ch;margin:0 0 clamp(36px,5vw,64px)}
+.aw{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center;padding:clamp(40px,6vw,90px) 0;border-top:1px solid var(--rule)}
+.aw:nth-child(even) .cv{order:2}
+.aw .cv{width:min(100%,500px);aspect-ratio:4/5;justify-self:center}
+.aw h2{font:500 clamp(26px,3.6vw,52px)/1 var(--sans);letter-spacing:-.03em;margin:0 0 8px;text-transform:uppercase}
+.aw .by{margin:0 0 18px;color:var(--mute)}.aw .d{max-width:44ch;font-size:16px;margin:0}
+.end{border-top:1px solid var(--rule);padding-top:36px;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+#app{display:grid;grid-template-columns:1fr 1fr;gap:26px clamp(20px,4vw,56px);max-width:960px}
+#app .full{grid-column:1/-1}#app button{justify-self:start}
+@media (max-width:760px){.rows h2,#visit h2{text-align:left;text-align-last:left;font-size:clamp(30px,10vw,52px)}.dark{grid-template-columns:1fr}.q,.cols{grid-column:1}.cols,#inv,#app,.aw{grid-template-columns:1fr}.aw:nth-child(even) .cv{order:0}.row{grid-template-columns:1fr}.s1{top:10px}}
+@media (prefers-reduced-motion:reduce){.c1card,.script{animation:none}html{scroll-behavior:auto}.stick{height:auto;overflow-x:auto;padding:60px 0 90px}}
+</style>
+</head>
+<body>
+<header><a href="#top">Vacant Walls</a><button id="mb" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button></header>
+<div id="menu" hidden><nav aria-label="Contents"><a href="#about"><i>01</i>About</a><a href="#show"><i>02</i>Next stop</a><a href="#apply"><i>03</i>Apply as an artist</a></nav></div>
+
+<main id="top">
+<section class="hero">
+  <div id="tiles" aria-hidden="true"></div>
+  <div class="hc c1card">
+    <p class="script s1"></p>
+    <h1 class="wm">vacant walls</h1>
+    <p class="script s2">art worldwide</p>
+    <span class="cap cl l">Pop-up</span><span class="cap cl r">Art gallery</span>
+  </div>
+  <div class="hc card2">
+    <div class="top2"><div class="nm cap" style="margin-left:auto">self:edited<br>Contemporary group show</div></div>
+    <div>
+      <div class="drow"><span>February 2027</span></div>
+      <div class="drow"><span>Raleigh, North Carolina</span></div>
+      <div class="drow"><a href="mailto:admin@vacantwallsgallery.com?subject=Hello%20Vacant%20Walls">admin@vacantwallsgallery.com</a></div>
+      <div class="drow"><a href="https://www.instagram.com/vacant.walls/" target="_blank" rel="noopener noreferrer">@vacant.walls</a></div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true" hidden style="display:none"><div id="tk"></div></div>
+</section>
+
+<section class="dark" id="about">
+  <span class="q" aria-hidden="true"></span>
+  <h2 class="rv" id="rv">We bring art to different cities worldwide</h2>
+  <div class="cols">
+    
+    
+  </div>
+</section>
+
+<section class="walk" id="walk" aria-label="Featured artists" hidden style="display:none">
+  <div class="stick"><div class="track" id="track">
+    <div class="card">
+      <svg class="fl" id="fl1" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40"/></svg>
+      <h2>Featured artists.</h2>
+      
+      
+    </div>
+    <div class="endc" id="endc"><a href="#artists">Learn more</a></div>
+  </div></div>
+</section>
+
+<section class="rows" id="details">
+  <h2>Next stop</h2>
+  <div class="row"><span>Show</span><b>self:edited</b></div>
+  <div class="row"><span>Format</span><b>Contemporary group show</b></div>
+  <div class="row"><span>Date</span><b>February 2027</b></div>
+  <div class="row"><span>City</span><b>Raleigh, North Carolina</b></div>
+  <div class="row"><span>Join us</span><div><a class="pbtn" href="#rsvp">RSVP</a></div></div>
+</section>
+
+<section class="photo" id="photo" aria-label="Preview artwork"><div class="img" id="img" role="img" aria-label="Grey painted scene with dark shapes and a pale moon"></div><b class="yr">2027</b></section>
+</main>
+
+<section id="apply" class="pg" hidden>
+  <a class="back" href="#top">Back to the wall</a>
+  <h1>Apply to be a part of our next show</h1>
+  <p class="lead">Tell us about yourself and share a link to your work.</p>
+  <form id="app">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>City<input name="city" autocomplete="address-level2"></label>
+    <label>Instagram or website<input name="website"></label>
+    <label>Medium<select name="medium"><option>Painting</option><option>Drawing</option><option>Print</option><option>Photography</option><option>Sculpture</option><option>Textile</option><option>Digital</option><option>Mixed media</option><option>Other</option></select></label>
+    <label>Title of the work you'd like to show<input name="work_title"></label>
+    <label class="full">Link to images of your work (portfolio, Google Drive, Dropbox)<input type="url" name="portfolio_link" required placeholder="https://"></label>
+    <label class="full">Tell us about the work<textarea name="about_work"></textarea></label>
+    <button class="pbtn" type="submit">Send application</button>
+    <p id="appok" role="status" hidden>Application received. Thank you for sharing your work.</p>
+  </form>
+</section>
+
+<section id="artistpg" class="pg" hidden>
+  <a class="back" href="#artists">Back to featured artists</a>
+  <h1 id="apName"></h1>
+  <div class="abt" style="margin-top:clamp(24px,4vw,48px)"><div class="cv i1" role="img" aria-label="Artist photo" style="aspect-ratio:4/5;width:min(100%,360px)"></div><div id="apBio"></div></div>
+  <div class="sh"><h2>Artworks</h2><div id="apWorks"></div></div>
+</section>
+<section id="artists" class="pg" hidden>
+  <a class="back" href="#top">Back to the wall</a>
+  <h1>Featured artists</h1>
+  <p class="lead">Meet the artists in our next show.</p>
+  <div class="sas" id="faList"></div>
+</section>
+<section id="show" class="pg" hidden>
+  <a class="back" href="#top">Back to the wall</a>
+  <h1>Next stop</h1>
+  <p class="lead">self:edited, a contemporary group show.</p>
+  <div class="sh"><h2>About the show</h2>
+    <div class="abt">
+      <div><div class="fa"><span>Date</span>February 2027</div><div class="fa"><span>City</span>Raleigh, North Carolina</div><div class="fa"><span>Format</span>Contemporary group show</div></div>
+      <div><p>self:edited is a contemporary group show and the next stop for Vacant Walls, a pop-up gallery that brings art to a new venue in a new city each time. Come see how artists from around the world express who they are, in all its nuances, through their work.</p></div>
+    </div>
+  </div>
+  <div hidden id="shArtists"></div>
+  <div hidden id="shCat"></div>
+  <div class="end sh"><a class="back" style="margin:0" href="#top">Back to the wall</a><a class="pbtn" href="#rsvp">RSVP</a></div>
+</section>
+<section id="rsvp" class="pg" hidden>
+  <a class="back" href="#top">Back to the wall</a>
+  <h1>RSVP</h1>
+  <p class="lead">self:edited, February 2027, Raleigh. Add your details and we'll confirm your spot.</p>
+  <form id="rsvpf">
+    <label>Name<input name="name" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>City<input name="city" autocomplete="address-level2"></label>
+    <label>Guests<select name="guests"><option>Just me</option><option>Me + 1</option></select></label>
+    <label class="full">Anything we should know?<textarea name="notes"></textarea></label>
+    <button class="pbtn" type="submit">Send RSVP</button>
+    <p id="rsvpok" role="status" hidden>RSVP received. We'll email you to confirm.</p>
+  </form>
+</section>
+<section id="artworks" class="pg" hidden>
+  <a class="back" href="#top">Back to the wall</a>
+  <h1>The artworks</h1>
+  <p class="lead">A closer look at the work in self:edited.</p>
+  <div class="list" id="list"></div>
+  <div class="end"><a class="back" style="margin:0" href="#top">Back to the wall</a></div>
+</section>
+
+<footer id="visit">
+  <h2>Join the email list.<svg id="fl2" viewBox="0 0 100 100" aria-hidden="true" style="display:none"><circle cx="50" cy="50" r="40"/></svg></h2>
+  <form id="inv"><label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@email.com"></label><button class="pbtn" type="submit">Join</button><p id="invok" role="status" hidden>You're on the list. We'll email you about the next pop-up.</p></form>
+  <div class="bar"><a href="mailto:admin@vacantwallsgallery.com?subject=Hello%20Vacant%20Walls">admin@vacantwallsgallery.com</a><a href="https://www.instagram.com/vacant.walls/" target="_blank" rel="noopener noreferrer">@vacant.walls</a><span>©2026 Vacant Walls</span></div>
+</footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const DOT='<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40"/></svg>';
+/* menu, forms */
+const mb=$('#mb'),mn=$('#menu');
+const tog=o=>{mn.hidden=!o;mb.setAttribute('aria-expanded',o)};
+mb.onclick=()=>tog(mn.hidden);mn.onclick=()=>tog(false);
+const FS='https://formspree.io/f/maeondlw';
+function hook(id,okId,label){const f=$(id),ok=$(okId),t=ok.textContent;f.addEventListener('submit',async e=>{e.preventDefault();const b=f.querySelector('button[type=submit]'),d=new FormData(f);d.append('form',label);d.append('_subject','Vacant Walls: '+label);b.disabled=true;try{const r=await fetch(FS,{method:'POST',body:d,headers:{Accept:'application/json'}});if(!r.ok)throw 0;ok.textContent=t;ok.hidden=false;f.reset()}catch(x){ok.textContent='Something went wrong. Please email admin@vacantwallsgallery.com.';ok.hidden=false}b.disabled=false})}
+hook('#inv','#invok','Email list');hook('#app','#appok','Artist application');hook('#rsvpf','#rsvpok','RSVP');
+/* ticker */
+const u='Invite only'+DOT+'A pop-up gallery'+DOT+'Art worldwide'+DOT;$('#tk').innerHTML=u+u+u+u;
+/* artworks page + wall pieces */
+const W=[['i1','4/5',58,0,1,'Helen Ifeagwu'],['i2','4/5',50,-5,1,'Artist name'],['i3','4/5',56,4,1,'Artist name'],['i1','4/5',52,-3,1,'Artist name']];
+$('#shArtists').innerHTML=W.map(w=>`<article class="sa"><div class="cv ${w[0]}" role="img" aria-label="Placeholder artwork"></div><h3>Artist name</h3><p>Medium, city</p><p>Short artist bio goes here.</p></article>`).join('');
+$('#shCat').innerHTML=W.map((w,i)=>`<div class="cr"><span>0${i+1}</span><div class="th ${w[0]}" role="img" aria-label="Placeholder artwork"></div><b>Artwork title</b><span>Artist name</span><span>Medium, year</span></div>`).join('');
+$('#list').innerHTML=W.map(w=>`<article class="aw"><div class="cv ${w[0]}" role="img" aria-label="Placeholder artwork"></div><div><h2>Artwork title</h2><p class="by">Artist name, medium, year</p><p class="d">Description of the work goes here: the materials, the idea behind it, and what the artist wants visitors to notice.</p></div></article>`).join('');
+const tr=$('#track'),end=$('#endc'),PC=W.map(w=>{const f=document.createElement('figure');f.className='pc'+(w[4]?' fr':'');f.style.marginTop=w[3]+'vh';f.innerHTML=`<div class="art ${w[0]}" style="--h:${w[2]}vh;--a:${w[1]}" role="img" aria-label="Photo of ${w[5]}"></div><figcaption>${w[5]}</figcaption>`;tr.insertBefore(f,end);return f});
+/* hero tiles */
+const bgs=['#2f2a7a','#9aa273','#a85a3d','#cdb892','#5a3040','#6a7fa8','#d9a98a'],sk=['#e9c9a8','#c98d6a','#f0d6bd','#8a5a44'],cl=['#2a1c18','#f0e2c8','#2f2a7a','#a85a3d'];
+const P=[[3,6,7,'4/5'],[20,3,5,'1/1'],[40,6,6,'3/4'],[58,3,5,'1/1'],[76,5,6,'4/5'],[90,8,5,'1/1'],[2,36,6,'3/4'],[93,40,5,'1/1'],[4,70,6,'4/5'],[14,88,5,'1/1'],[36,90,6,'3/4'],[58,88,5,'1/1'],[78,86,7,'4/5'],[92,72,5,'1/1']];
+const T=P.map((p,i)=>{const e=document.createElement('i');e.className='tile';e.style.cssText=`left:${p[0]}%;top:${p[1]}%;width:clamp(34px,${p[2]}vw,140px);aspect-ratio:${p[3]};background:radial-gradient(circle at 50% 40%,${sk[i%4]} 0 17%,transparent 18%),radial-gradient(ellipse 48% 34% at 50% 102%,${cl[(i+1)%4]} 0 100%,transparent 101%),${bgs[i%7]}`;$('#tiles').append(e);return{e,s:.08+(i%5)*.07}});
+/* Helen Ifeagwu: the three featured works */
+const A=[{t:'The Interface',img:'assets/the-interface.jpg',r:'1101/1583',size:'100 x 70 cm',d:'The body as a threshold between inner and outer realities. A female figure, drawn from the long tradition of the female body in art, opens to reveal an interior landscape where water gathers and flows, a symbol of memory, origin and the generative space of the womb. Mechanisms of observation and technology orbit her, and a spiral descent suggests continuous becoming as the line between observer and observed dissolves.'},{t:'Metamorphosis',img:'assets/metamorphosis.jpg',r:'879/1289',size:'100 x 120 cm',d:'A solitary female figure, rendered as a chrome hybrid of body and machine, embodies transition as both relic and future. Drawing on Afrofuturist thought and ideas of parallel realities, the work imagines a world where spiritual and technological evolution coexist, in a landscape suspended between dream and reality.'},{t:'Axis of Becoming',img:'assets/axis-of-becoming.jpg',r:'1458/1157',size:'80 x 100 cm',d:'A central origin around which transformation continually unfolds. A chrome atom, a symbol of energy, intelligence and technology, sits at the core while two sculptural women metamorphose around it, embodying the divine feminine. A computer-constructed grill over the mouth asks how technological systems mediate, filter and standardise voice, while water, sand and light link the ancient and the futuristic.'}];
+$('#list').innerHTML=A.map(a=>`<article class="aw"><img class="cv" style="display:block;aspect-ratio:${a.r};object-fit:cover;height:auto" src="${a.img}" alt="${a.t}, oil painting by Helen Ifeagwu" loading="lazy"><div><h2>${a.t}</h2><p class="by">Helen Ifeagwu, oil on canvas, 2026</p><p class="d">${a.d}</p><p class="by" style="margin-top:14px">${a.size}</p></div></article>`).join('');
+$('#shArtists').innerHTML=`<article class="sa"><div class="cv i1" role="img" aria-label="Photo of Helen Ifeagwu"></div><h3>Helen Ifeagwu</h3><p>Painter and illustrator</p><p>Oil paintings on identity, technology and transformation.</p></article>`;
+$('#shCat').innerHTML=A.map((a,i)=>`<div class="cr"><span>0${i+1}</span><div class="th" role="img" aria-label="${a.t}" style="background:url(${a.img}) center/cover"></div><b>${a.t}</b><span>Helen Ifeagwu</span><span>Oil on canvas, 2026, ${a.size}</span></div>`).join('');
+$('#faList').innerHTML=[['Helen Ifeagwu','Painter and illustrator','Helen Ifeagwu is a painter and illustrator whose oil paintings explore identity, technology and transformation.','helen-ifeagwu'],['Artist name','Medium, city','Short artist bio goes here.'],['Artist name','Medium, city','Short artist bio goes here.'],['Artist name','Medium, city','Short artist bio goes here.']].map(a=>`<article class="sa"><div class="cv i1" role="img" aria-label="Photo of ${a[0]}"></div><h3>${a[3]?`<a href="#artist-${a[3]}">${a[0]}</a>`:a[0]}</h3><p>${a[1]}</p><p>${a[2]}</p></article>`).join('');
+const ARTISTS={'helen-ifeagwu':{name:'Helen Ifeagwu',role:'Painter and illustrator',bio:'Helen Ifeagwu is a painter and illustrator. Her oil paintings explore identity, consciousness and transformation, bringing together the human body, technology and landscape in surreal, dreamlike compositions.',works:A}};
+function fillArtist(slug){const a=ARTISTS[slug];if(!a){location.hash='#artists';return}
+$('#apName').textContent=a.name;
+$('#apBio').innerHTML=`<p style="font:500 13px var(--sans);text-transform:uppercase;color:var(--mute);margin:0 0 14px">${a.role}</p><p style="font-size:clamp(17px,1.8vw,22px);max-width:40ch;margin:0">${a.bio}</p>`;
+$('#apWorks').innerHTML=a.works.map(w=>`<article class="aw"><img class="cv" style="display:block;aspect-ratio:${w.r};object-fit:cover;height:auto" src="${w.img}" alt="${w.t}, oil painting by ${a.name}" loading="lazy"><div><h2>${w.t}</h2><p class="by">${a.name}, oil on canvas, 2026</p><p class="d">${w.d}</p><p class="by" style="margin-top:14px">${w.size}</p></div></article>`).join('')}
+/* letter reveal */
+const rv=$('#rv'),L=[];rv.innerHTML=rv.textContent.split(' ').map(w=>`<span class="w">${[...w].map(c=>`<i>${c}</i>`).join('')}</span>`).join(' ');
+rv.querySelectorAll('i').forEach(i=>L.push(i));let lit=-1;
+/* router: home / #artworks / #apply */
+const m=$('main'),ft=$('#visit'),aw=$('#artworks'),ap=$('#apply'),rs2=$('#rsvp'),sh2=$('#show'),fa2=$('#artists'),ap2=$('#artistpg');let cur=null;
+const walk=$('#walk');let vh=innerHeight,tw=0;
+const size=()=>{vh=innerHeight;tw=tr.scrollWidth-innerWidth;if(!rm)walk.style.height=Math.max(vh,tw+vh)+'px'};
+function route(){const h=location.hash;let v=h==='#artworks'?'a':h==='#apply'?'p':h==='#rsvp'?'r':h==='#show'?'s':h==='#artists'?'f':h.indexOf('#artist-')===0?'h':'';m.hidden=!!v;document.body.classList.toggle('sub',!!v);aw.hidden=v!=='a';ap.hidden=v!=='p';rs2.hidden=v!=='r';sh2.hidden=v!=='s';fa2.hidden=v!=='f';ap2.hidden=v!=='h';if(v==='h')fillArtist(h.slice(8));if(v!==cur){cur=v;scrollTo(0,0);if(!v){size();const t=h&&h!=='#top'?document.querySelector(h):null;if(t)t.scrollIntoView()}}else if(h==='#visit'){ft.scrollIntoView()}}
+addEventListener('hashchange',route);route();
+if(rm){L.forEach(i=>i.style.opacity=1);return}
+const tk=$('#tk'),img=$('#img'),photo=$('#photo'),fl1=$('#fl1'),s1=$('.s1'),s2=$('.s2'),wm=$('.wm');
+let x=0,v=0,dir=1,last=scrollY,mx=0,my=0,fx=0,fy=0;
+size();addEventListener('resize',size);addEventListener('load',size);
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+function f(){
+if(m.hidden){requestAnimationFrame(f);return}
+const y=scrollY,d=y-last;last=y;
+fx+=(mx-fx)*.08;fy+=(my-fy)*.08;
+T.forEach(t=>{const k=30+t.s*260;t.e.style.transform=`translate(${-fx*k}px,${y*-t.s-fy*k}px)`});
+const tt=performance.now()/1000,hp=Math.min(1,y/vh);
+s1.style.transform=`translate(${fx*-70+Math.sin(tt*.9)*10-y*.18}px,${fy*-30+Math.cos(tt*1.1)*5}px) rotate(${Math.sin(tt*.7)*.8}deg)`;
+s2.style.transform=`translate(${fx*24+Math.sin(tt*.5+2)*4+y*.05}px,${fy*10+Math.cos(tt*.6)*2}px) rotate(${Math.sin(tt*.4+1)*-.3}deg)`;
+wm.style.letterSpacing=`${-.07+hp*.04+Math.sin(tt*.5)*.004}em`;
+wm.style.transform=`translate(${fx*-14}px,${fy*-8}px)`;
+v+=(Math.abs(d)-v)*.1;if(d)dir=d>0?1:-1;x-=dir*(.5+v*.6);const w=tk.scrollWidth/4;if(x<-w)x+=w;if(x>0)x-=w;tk.style.transform=`translateX(${x}px)`;
+const q=Math.min(1,Math.max(0,(vh*.8-rv.getBoundingClientRect().top)/(vh*.55))),n=Math.floor(q*L.length);
+if(n!==lit){L.forEach((i,k)=>i.style.opacity=k<n?1:.22);lit=n}
+const r=walk.getBoundingClientRect(),g=Math.min(1,Math.max(0,-r.top/Math.max(1,r.height-vh)));
+tr.style.transform=`translateX(${-g*Math.max(0,tw)}px)`;
+PC.forEach((c,i)=>c.style.transform=`translateY(${Math.sin(g*7+i*1.3)*14}px)`);
+const pr=photo.getBoundingClientRect();img.style.transform=`translateY(${(pr.top/vh)*-8}%)`;
+requestAnimationFrame(f)}
+requestAnimationFrame(f);
+})();
+</script>
+</body>
+</html>
